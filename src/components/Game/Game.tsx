@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Square from "../Square/Square";
 import ScoreCard from "../ScoreCard/ScoreCard";
+import { motion, AnimatePresence } from "motion/react"
 import classes from "./Game.module.scss";
 
 export type Player = "X" | "O";
@@ -64,6 +65,7 @@ function Game() {
 			setScores(s => ({ ...s, [winner]: s[winner] + 1 }));
 			setIsGameActive(false);
 		} else if (grid.every(v => v !== null)) {
+			setWinner(null);
 			setScores(s => ({ ...s, draw: s.draw + 1 }));
 			setIsGameActive(false);
 		}
@@ -93,31 +95,59 @@ function Game() {
 					)}
 				</div>
 
-				{isGameActive &&
-					<div
-						className={classes.turn}
-						style={{ background: PLAYER_COLORS[player] }}
-					>
-						{player} turn
-					</div>
-				}
+				<AnimatePresence mode="wait">
 
-				{!isGameActive && (scores.X + scores.draw + scores.O) > 0 &&
-					<div className={classes.banner}>
-						Game over. {winner ? `Player ${winner} Wins!` : "It's a Draw!"}
-					</div>
-				}
+					{isGameActive &&
+						<motion.div
+							key="turn"
+							className={classes.turn}
+							style={{ background: PLAYER_COLORS[player] }}
+							initial={{ scale: 0, opacity: 0 }}
+							animate={{ scale: 1, opacity: 1 }}
+							exit={{ scale: 0, opacity: 0 }}
+						>
+							{player} turn
+						</motion.div>
+					}
+
+					{!isGameActive && (scores.X + scores.draw + scores.O) > 0 &&
+						<motion.div
+							key="banner"
+							className={classes.banner}
+							initial={{ scale: 0, y: 20, opacity: 0 }}
+							animate={{ scale: 1, y: 0, opacity: 1 }}
+							exit={{ scale: 0, y: -20, opacity: 0 }}
+						>
+							<div>
+								Game over. {winner ? `Player ${winner} Wins!` : "It's a Draw!"}
+							</div>
+						</motion.div>
+					}
+
+				</AnimatePresence>
 
 			</div>
 
-			{!isGameActive &&
-				<button
-					className={classes.newGameButton}
-					onClick={() => { setIsGameActive(true); setGrid(INITIAL_GRID) }}
-				>
-					New Game
-				</button>
-			}
+			<AnimatePresence>
+
+				{!isGameActive &&
+					<motion.button
+						key="new-game"
+						className={classes.newGameButton}
+						onClick={
+							() => { setIsGameActive(true); setGrid(INITIAL_GRID) }
+						}
+						initial={{ y: 110, opacity: 0 }}
+						animate={{ y: 0, opacity: 1 }}
+						exit={{ y: 110, opacity: 0 }}
+						whileHover={{ background: "#C5A0D7" }}
+						transition={{ ease: "easeIn" }}
+					>
+						New Game
+					</motion.button>
+				}
+				
+			</AnimatePresence>
 
 		</div>
 	);

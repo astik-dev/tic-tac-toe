@@ -15,6 +15,7 @@
 
 	border-radius: 25.21px;
 	background: #2B0040;
+	overflow: hidden;
 
 	@media (max-width: 575.98px) {
 		gap: 30px;
@@ -67,6 +68,8 @@
 
 	border-radius: 5.042px;
 
+	transition: background 0.2s;
+
 	text-align: center;
 	font-family: Fredoka;
 	font-size: 16.134px;
@@ -76,20 +79,10 @@
 .banner {
 	position: relative;
 
-	width: 100%;
-	max-width: 255.126px;
-
-	padding: 9.92px 0 13.95px 0;
 	margin-top: 30.25px;
 
-	border-radius: 2.521px;
-	background: #06802F;
-
-	text-align: center;
-	color: #FFF;
-	font-family: Inter;
-	font-size: 16.134px;
-	font-weight: 700;
+	width: 100%;
+	max-width: 255.126px;
 
 	&::before,
 	&::after {
@@ -116,6 +109,20 @@
 	&::after {
 		left: calc(100% - 10px);
 	}
+
+
+	div {
+		padding: 9.92px 0 13.95px 0;
+
+		border-radius: 2.521px;
+		background: #06802F;
+
+		text-align: center;
+		color: #FFF;
+		font-family: Inter;
+		font-size: 16.134px;
+		font-weight: 700;
+	}
 }
 
 .newGameButton {
@@ -129,10 +136,4 @@
 	font-family: Fredoka;
 	font-size: 16.152px;
 	font-weight: 700;
-
-	transition: all 0.25s;
-
-	&:hover {
-		background: #C5A0D7;
-	}
 }
