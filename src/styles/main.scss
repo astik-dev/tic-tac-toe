@@ -1,5 +1,9 @@
 @use "./reset";
 
+* {
+	-webkit-tap-highlight-color: transparent;
+}
+
 body {
 	background: #5A1E76;
 }
