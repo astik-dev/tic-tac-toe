@@ -3,8 +3,7 @@ import Square, { type SquareProps } from "../Square/Square";
 import ScoreCard from "../ScoreCard/ScoreCard";
 import classes from "./Game.module.scss";
 
-const PLAYER_X_COLOR = "#48D2FE";
-const PLAYER_O_COLOR = "#E2BE00";
+const PLAYER_COLORS = { X: "#48D2FE", O: "#E2BE00" } as const;
 
 const INITIAL_GRID = [
 	null, null, null,
@@ -32,37 +31,39 @@ function Game() {
 		<div className={classes.game}>
 
 			<div className={classes.scores}>
-				<ScoreCard label="PLAYER X" color={PLAYER_X_COLOR} score={scores.X} />
+				<ScoreCard label="PLAYER X" color={PLAYER_COLORS.X} score={scores.X} />
 				<ScoreCard label="DRAW" color="#BCDBF9" score={scores.draw} />
-				<ScoreCard label="PLAYER O" color={PLAYER_O_COLOR} score={scores.O} />
+				<ScoreCard label="PLAYER O" color={PLAYER_COLORS.O} score={scores.O} />
 			</div>
 
-			<div className={classes.grid}>
-				{grid.map((value, i) =>
-					<Square
-						key={i}
-						value={value}
-						color={value === "X" ? PLAYER_X_COLOR : PLAYER_O_COLOR}
-						onClick={() => handleSquareClick(i)}
-						disabled={!isGameActive}
-					/>
-				)}
-			</div>
+			<div className={classes.gridContainer}>
 
-			{isGameActive &&
-				<div
-					className={classes.turn}
-					style={{
-						background: player === "X" ? PLAYER_X_COLOR : PLAYER_O_COLOR
-					}}
-				>
-					{player} turn
+				<div className={classes.grid}>
+					{grid.map((value, i) =>
+						<Square
+							key={i}
+							value={value}
+							color={PLAYER_COLORS[value || "X"]}
+							onClick={() => handleSquareClick(i)}
+							disabled={!isGameActive}
+						/>
+					)}
 				</div>
-			}
 
-			{!isGameActive && (scores.X + scores.draw + scores.O) > 0 &&
-				<div className={classes.banner}>Game over.</div>
-			}
+				{isGameActive &&
+					<div
+						className={classes.turn}
+						style={{ background: PLAYER_COLORS[player] }}
+					>
+						{player} turn
+					</div>
+				}
+
+				{!isGameActive && (scores.X + scores.draw + scores.O) > 0 &&
+					<div className={classes.banner}>Game over.</div>
+				}
+
+			</div>
 
 			{!isGameActive &&
 				<button
