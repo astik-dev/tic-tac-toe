@@ -1,0 +1,20 @@
+.square {
+	border-radius: 5.042px;
+	background: #43115B;
+	user-select: none;
+
+	transition: background 0.2s;
+
+	font-family: Fredoka;
+	font-size: 47.395px;
+	font-weight: 700;
+
+	&:hover {
+		background: #5A1E76;
+	}
+
+	&:disabled {
+		cursor: default;
+		background: #43115B;
+	}
+}

@@ -1,8 +1,12 @@
+import classes from "./App.module.scss";
+import Game from "./components/Game/Game";
+
 function App() {
 	return (
-		<>
-			<h1>tic.<br/>tac.<br/>toe.</h1>
-		</>
+		<div className={classes.app}>
+			<h1>tic.<br/><span>tac.</span><br/>toe.</h1>
+			<Game/>
+		</div>
 	);
 }
 

@@ -1,0 +1,29 @@
+.app {
+	position: relative;
+
+	height: 100%;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	h1 {
+		position: fixed;
+		z-index: 1;
+		bottom: 15px;
+		left: -24px;
+
+		user-select: none;
+
+		color: #DCBF3F;
+		font-family: Fredoka;
+		font-size: 195.041px;
+		font-style: normal;
+		font-weight: 700;
+		line-height: 56.7%;
+
+		span {
+			color: #72CFF9;
+		}
+	}
+}

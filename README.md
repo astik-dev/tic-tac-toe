@@ -71,3 +71,9 @@ export default defineConfig([
   },
 ])
 ```
+
+## Design
+
+Design by [Anuj](https://www.figma.com/community/file/1254192154560627135/tic-tac-toe)  
+Licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)  
+Modifications: sizes changed, some elements may be missing.

@@ -1,0 +1,122 @@
+.game {
+	position: relative;
+	z-index: 2;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	width: 100%;
+	max-width: 425.546px;
+	min-height: 633.78px;
+
+	padding-top: 56.47px;
+
+	border-radius: 25.21px;
+	background: #2B0040;
+}
+
+.scores {
+	display: flex;
+
+	width: 257px;
+
+	margin-bottom: 38.82px;
+
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	gap: 11.09px;
+}
+
+.grid {
+	$square-size: 75.63px;
+
+	display: grid;
+	grid-template-columns: repeat(3, $square-size);
+	grid-template-rows: repeat(3, $square-size);
+	gap: 14.12px;	
+}
+
+.turn {
+	width: 100%;
+	max-width: 255.63px;
+
+	padding: 11.18px 0;
+	margin-top: 51.93px;
+
+	border-radius: 5.042px;
+
+	text-align: center;
+	font-family: Fredoka;
+	font-size: 16.134px;
+	font-weight: 700;
+}
+
+.banner {
+	position: relative;
+
+	width: 100%;
+	max-width: 255.126px;
+
+	padding: 9.92px 0 13.95px 0;
+	margin-top: 30.25px;
+
+	border-radius: 2.521px;
+	background: #06802F;
+
+	text-align: center;
+	color: #FFF;
+	font-family: Inter;
+	font-size: 16.134px;
+	font-weight: 700;
+
+	&::before,
+	&::after {
+		content: "";
+
+		position: absolute;
+		z-index: -1;
+		bottom: -7.06px;
+
+		display: inline-block;
+		width: 35px;
+		height: 39px;
+
+		background: url("../../assets/v-cut.svg") no-repeat;
+		background-size: contain;
+	}
+
+	&::before {
+		right: calc(100% - 10px);
+
+		transform: rotate(180deg);
+	}
+
+	&::after {
+		left: calc(100% - 10px);
+	}
+}
+
+.newGameButton {
+	position: absolute;
+	bottom: 55.27px;
+
+	width: 100%;
+	max-width: 314.957px;
+
+	padding: 14.133px 0;
+
+	border-radius: 5.047px;
+	background: #F4F6F5;
+
+	color: #000;
+	font-family: Fredoka;
+	font-size: 16.152px;
+	font-weight: 700;
+
+	transition: all 0.25s;
+
+	&:hover {
+		background: #C5A0D7;
+	}
+}
