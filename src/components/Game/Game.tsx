@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
-import Square, { type SquareProps } from "../Square/Square";
+import Square from "../Square/Square";
 import ScoreCard from "../ScoreCard/ScoreCard";
 import classes from "./Game.module.scss";
+
+export type Player = "X" | "O";
 
 const PLAYER_COLORS = { X: "#48D2FE", O: "#E2BE00" } as const;
 
@@ -27,10 +29,10 @@ const WIN_LINES = [
 function Game() {
 
 	const [isGameActive, setIsGameActive] = useState(false);
-	const [player, setPlayer] = useState<Exclude<SquareProps["value"], null>>("X");
-	const [grid, setGrid] = useState<SquareProps["value"][]>(INITIAL_GRID);
+	const [player, setPlayer] = useState<Player>("X");
+	const [grid, setGrid] = useState<(Player | null)[]>(INITIAL_GRID);
 	const [scores, setScores] = useState({ X: 0, O: 0, draw: 0 });
-	const [winner, setWinner] = useState<SquareProps["value"]>(null);
+	const [winner, setWinner] = useState<Player | null>(null);
 
 	const handleSquareClick = (squareIndex: number) => {
 		setGrid(prev => {
@@ -43,7 +45,7 @@ function Game() {
 
 	useEffect(() => {
 
-		let winner: SquareProps["value"] = null;
+		let winner: Player | null = null;
 
 		for (const line of WIN_LINES) {
 			const lineValues = line.map(index => grid[index]);

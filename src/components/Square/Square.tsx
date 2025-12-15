@@ -1,7 +1,8 @@
+import type { Player } from "../Game/Game";
 import classes from "./Square.module.scss";
 
-export type SquareProps = {
-	value: "X" | "O" | null,
+type SquareProps = {
+	value: Player | null,
 	color: string,
 	onClick: () => void,
 	disabled: boolean,
