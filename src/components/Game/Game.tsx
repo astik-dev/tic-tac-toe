@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Square from "../Square/Square";
 import ScoreCard from "../ScoreCard/ScoreCard";
 import { motion, AnimatePresence } from "motion/react"
@@ -27,6 +27,21 @@ const WIN_LINES = [
 	[ 2, 4, 6 ],
 ];
 
+function calculateWinner(grid: (Player | null)[]): Player | null {
+
+	let winner: Player | null = null;
+
+	for (const line of WIN_LINES) {
+		const lineValues = line.map(index => grid[index]);
+		winner = lineValues.reduce((accumulator, current) => {
+			return accumulator === current && current !== null ? accumulator : null;
+		});
+		if (winner) break;
+	}
+
+	return winner;
+}
+
 function Game() {
 
 	const [isGameActive, setIsGameActive] = useState(false);
@@ -36,41 +51,22 @@ function Game() {
 	const [winner, setWinner] = useState<Player | null>(null);
 
 	const handleSquareClick = (squareIndex: number) => {
-		setGrid(prev => {
-			const newGrid = [...prev];
-			newGrid[squareIndex] = player;
-			return newGrid;
-		});
+		
+		const newGrid = [...grid];
+		newGrid[squareIndex] = player;
+
+		setGrid(newGrid);
 		setPlayer(p => p === "X" ? "O" : "X");
+
+		const winner = calculateWinner(newGrid);
+		setWinner(winner);
+
+		if (winner || newGrid.every(v => v !== null)) {
+			const scoresKey = winner || "draw";
+			setScores(s => ({ ...s, [scoresKey]: s[scoresKey] + 1 }));
+			setIsGameActive(false);
+		}
 	};
-
-	useEffect(() => {
-
-		let winner: Player | null = null;
-
-		for (const line of WIN_LINES) {
-			const lineValues = line.map(index => grid[index]);
-			winner = lineValues.reduce((accumulator, current) => {
-				if (accumulator === current && current !== null) {
-					return accumulator;
-				} else {
-					return null;
-				}
-			});
-			if (winner) break;
-		}
-
-		if (winner) {
-			setWinner(winner);
-			setScores(s => ({ ...s, [winner]: s[winner] + 1 }));
-			setIsGameActive(false);
-		} else if (grid.every(v => v !== null)) {
-			setWinner(null);
-			setScores(s => ({ ...s, draw: s.draw + 1 }));
-			setIsGameActive(false);
-		}
-
-	}, [grid]);
 
 	return (
 		<div className={classes.game}>
